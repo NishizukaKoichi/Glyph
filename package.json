@@ -15,7 +15,7 @@
     "ci": "make ci"
   },
   "devDependencies": {
-    "pnpm": "^9.0.0"
+    "pnpm": "^10.18.3"
   },
   "engines": {
     "node": ">=20.0.0",
