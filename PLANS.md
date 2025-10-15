@@ -282,3 +282,14 @@
   **檻は完全体。演目を始めよう。🎯**
 
 （以降、毎サイクル追記）
+
+- **2025-10-13 10:00**
+  - Codex: README を Glyph 完全仕様書 v1.0.1 として刷新（構成 §1 / §3 を反映）。
+  - Codex: Makefile の `ui:snap` ターゲットを `ui\:snap` へエスケープし、多重パターンエラーを解消。
+  - 根拠: `docs/spec/PROJECT_SPEC.md` §1 目的とスコープ、§3 インターフェース（公開仕様整備）、Makefile 命名規約（DoD: ui-snap禁止）。
+  - 備考: `make test` / `make ui:snap` は `uv` コマンド未インストールで停止。環境整備後に再実行予定。
+
+- **2025-10-13 12:30**
+  - Codex: `uv` を導入し、Python 3.12 固定で `make test` を完走（Amplifier/FE/BE すべて緑）。
+  - 対応: `pyproject.toml` に `testpaths=tests` を追加、`frontend` に `ts-node`・`passWithNoTests` を設定し Jest の欠落/無テスト失敗を解消。
+  - 根拠: DoD 必須条件（全テスト緑 / ガード整備）、`AGENTS.md` §3 実装ルーチン（テスト赤のまま進めない）。

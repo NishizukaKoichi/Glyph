@@ -12,6 +12,7 @@ const config: Config = {
   },
   testMatch: ['**/__tests__/**/*.test.ts?(x)'],
   reporters: ['default'],
+  passWithNoTests: true,
   verbose: false,
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'

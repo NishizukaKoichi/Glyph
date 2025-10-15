@@ -683,7 +683,7 @@ dot-to-mermaid: ## Convert DOT files to Mermaid format. Usage: make dot-to-merma
 # AI Cage helper targets
 .PHONY: cage-fe-install cage-fe-test cage-fe-snap cage-fe-snap-update cage-fe-lint cage-fe-type cage-fe-build
 .PHONY: cage-be-install cage-be-test cage-be-lint cage-be-sec
-.PHONY: format lint type ui:snap review e2e ci
+.PHONY: format lint type ui\:snap review e2e ci
 
 cage-fe-install:
 	@echo "→ Installing frontend dependencies (pnpm)"
@@ -740,7 +740,7 @@ type: ## Type-check frontend and backend
 	@echo "[AI Cage] Frontend typecheck..."
 	$(MAKE) cage-fe-type
 
-ui:snap: ## Run project UI snapshot workflow
+ui\:snap: ## Run project UI snapshot workflow
 	@echo "[AI Cage] Generating UI previews..."
 	uv run python scripts/gen_ui_previews.py
 	@echo "[AI Cage] Running frontend snapshot tests..."
@@ -766,5 +766,5 @@ e2e: ## Run E2E tests (Playwright placeholder)
 ci: ## Run install → test → review for full stack
 	$(MAKE) install
 	$(MAKE) test
-	$(MAKE) ui:snap
+	$(MAKE) ui\:snap
 	$(MAKE) review
