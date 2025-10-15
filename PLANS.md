@@ -293,3 +293,28 @@
   - Codex: `uv` を導入し、Python 3.12 固定で `make test` を完走（Amplifier/FE/BE すべて緑）。
   - 対応: `pyproject.toml` に `testpaths=tests` を追加、`frontend` に `ts-node`・`passWithNoTests` を設定し Jest の欠落/無テスト失敗を解消。
   - 根拠: DoD 必須条件（全テスト緑 / ガード整備）、`AGENTS.md` §3 実装ルーチン（テスト赤のまま進めない）。
+
+- **2025-10-15 22:00 - Phase 1: Glyph コア実装完了**
+  - Claude: Glyph 認証ブローカーのコア機能を実装完了。
+  - 実装項目:
+    1. ✅ バックエンド基盤構築（FastAPI + SQLAlchemy + Pydantic）
+    2. ✅ データベースモデル（User / AuthFactor / TrustSignal）
+    3. ✅ JWT 発行・検証基盤（python-jose）
+    4. ✅ Assurance Score 計算エンジン（仕様書 §3 準拠）
+    5. ✅ Trust Signals 計算エンジン（仕様書 §3 準拠）
+    6. ✅ トークン発行サービス（Glyph 印章形式）
+    7. ✅ OIDC Discovery エンドポイント
+    8. ✅ テスト完全緑化（11 tests passed）
+  - 技術スタック:
+    - FastAPI 0.109+
+    - SQLAlchemy 2.0 (async)
+    - Pydantic 2.6+
+    - python-jose (JWT)
+    - asyncpg (PostgreSQL driver)
+  - 根拠: README.md §1-5（Glyph 仕様 v1.0.1）、§3 スコア設計、§4 哲学
+  - 成果:
+    - Assurance Score: α/β/γ レベル判定実装
+    - Trust Signals: risk band (low/medium/high) 実装
+    - Freshness decay / Independence / Credibility 計算実装
+    - 同意ベースフィルタリング実装
+  - 次フェーズ: Phase 2（外部IdP連携：Google/Microsoft/GitHub/X）
