@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.api import oauth as oauth_router
+from app.api import webauthn as webauthn_router
 from app.core.config import settings
 
 
@@ -66,6 +67,9 @@ async def health_check() -> HealthResponse:
 
 # Include OAuth router
 app.include_router(oauth_router.router)
+
+# Include WebAuthn router
+app.include_router(webauthn_router.router)
 
 
 # OIDC Discovery endpoint

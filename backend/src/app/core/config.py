@@ -40,6 +40,11 @@ class Settings(BaseSettings):
     x_client_id: str = ""
     x_client_secret: str = ""
 
+    # WebAuthn
+    webauthn_rp_id: str = "localhost"
+    webauthn_rp_name: str = "Glyph"
+    webauthn_origin: str = "http://localhost:8000"
+
     # CORS
     cors_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
 
