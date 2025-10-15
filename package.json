@@ -1,24 +1,8 @@
 {
-  "name": "ai-cage-driven-dev",
+  "name": "glyph",
   "version": "1.0.0",
   "private": true,
-  "description": "Claude Code × Codex CLI の檻（テスト&ドキュメント）駆動開発テンプレート",
   "workspaces": [
     "frontend"
-  ],
-  "scripts": {
-    "install:all": "make install",
-    "test": "make test",
-    "ui:snap": "make ui:snap",
-    "review": "make review",
-    "format": "make format",
-    "ci": "make ci"
-  },
-  "devDependencies": {
-    "pnpm": "^9.0.0"
-  },
-  "engines": {
-    "node": ">=20.0.0",
-    "pnpm": ">=9.0.0"
-  }
+  ]
 }
