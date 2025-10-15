@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # Database
     database_url: str = Field(
-        default="postgresql+asyncpg://glyph:glyph@localhost:5432/glyph"
+        default="sqlite+aiosqlite:///./glyph.db"
     )
 
     # JWT

@@ -318,3 +318,53 @@
     - Freshness decay / Independence / Credibility 計算実装
     - 同意ベースフィルタリング実装
   - 次フェーズ: Phase 2（外部IdP連携：Google/Microsoft/GitHub/X）
+
+- **2025-10-15 23:00 - Phase 2: OAuth 外部IdP連携完了（コミット f8a3773）**
+  - Claude: OAuth 2.0認証フロー実装完了（4プロバイダー）
+  - 実装項目:
+    1. ✅ OAuth サービス（Authlib使用）
+    2. ✅ ユーザー管理サービス（get_or_create_user / add_auth_factor）
+    3. ✅ OAuth APIエンドポイント（/auth/login / /auth/callback）
+    4. ✅ 4プロバイダー対応（Google / Microsoft / GitHub / X/Twitter）
+    5. ✅ ユーザー情報標準化（provider / provider_user_id / email / verified）
+    6. ✅ Glyph トークン生成統合（OAuth → User → AuthFactor → Token）
+    7. ✅ テスト完全緑化（18 tests passed）
+  - 技術スタック:
+    - Authlib 1.3+ (OAuth 2.0 client)
+    - Google: OpenID Connect (.well-known/openid-configuration)
+    - Microsoft: MS Graph API (https://graph.microsoft.com/v1.0/me)
+    - GitHub: GitHub API v3 (user + emails endpoint)
+    - Twitter: Twitter API v2 (users/me)
+  - 根拠: README.md §4（外部IdP連携）、§3 スコア設計（OAuth weight: Google/MS=25, GitHub/X=15）
+  - 成果:
+    - 4プロバイダー統一インターフェース実装
+    - 責任分離設計（OAuth / User / Token サービス）
+    - 非同期SQLAlchemy完全対応
+  - 次フェーズ: Phase 3（WebAuthn/Passkey 統合）
+
+- **2025-10-15 23:30 - Phase 3: WebAuthn/Passkey 統合完了（コミット fdfcbcc）**
+  - Claude: WebAuthn/Passkey認証フロー実装完了
+  - 実装項目:
+    1. ✅ WebAuthn サービス（py_webauthn 2.7.0使用）
+    2. ✅ 登録フロー（register/start → register/finish）
+    3. ✅ 認証フロー（authenticate/start → authenticate/finish）
+    4. ✅ WebAuthn APIエンドポイント（/auth/webauthn/*）
+    5. ✅ WebAuthn設定（RP ID / RP Name / Origin）
+    6. ✅ Credential管理（AuthFactor.extra_data保存）
+    7. ✅ Sign count検証（クローン検知）
+    8. ✅ テスト完全緑化（24 tests passed - Phase 1-3統合）
+  - 技術スタック:
+    - py_webauthn (webauthn 2.7.0) - 2025年も活発にメンテナンス
+    - FIDO2完全準拠
+    - User verification: "preferred"（UX最適化）
+  - セキュリティ機能:
+    - 32バイトランダムチャレンジ（secure generation）
+    - Origin / RP ID検証
+    - Sign count検証（クローン検知）
+    - チャレンジ使い捨て（replay attack防止）
+  - 根拠: README.md §1-3（WebAuthn weight=35、最高の単一ファクター）
+  - 成果:
+    - FIDO2準拠の全認証器サポート（Security Key / Touch ID / Face ID / Windows Hello / Android biometrics）
+    - Credential metadata保存（AAGUID / device type / backup eligibility）
+    - インメモリチャレンジ管理（本番ではRedis推奨）
+  - 次フェーズ: Phase 4（フロントエンド実装またはインフラ整備）
