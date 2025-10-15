@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from app.api import oauth as oauth_router
 from app.core.config import settings
 
 
@@ -61,6 +62,10 @@ async def health_check() -> HealthResponse:
     return HealthResponse(
         status="healthy", message="Glyph is running", version=settings.app_version
     )
+
+
+# Include OAuth router
+app.include_router(oauth_router.router)
 
 
 # OIDC Discovery endpoint
