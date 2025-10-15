@@ -368,3 +368,34 @@
     - Credential metadata保存（AAGUID / device type / backup eligibility）
     - インメモリチャレンジ管理（本番ではRedis推奨）
   - 次フェーズ: Phase 4（フロントエンド実装またはインフラ整備）
+
+- **2025-10-16 00:00 - Phase 4: データベースマイグレーション完了（コミット eaadeb2）**
+  - Claude: Alembic完全セットアップとデータベーススキーマ構築
+  - 実装項目:
+    1. ✅ Alembic初期化（migrations/ディレクトリ）
+    2. ✅ 非同期マイグレーション環境設定（env.py with greenlet）
+    3. ✅ 初期スキーママイグレーション生成（autogenerate）
+    4. ✅ 3テーブル作成（users / auth_factors / trust_signals）
+    5. ✅ SQLite開発環境設定（PostgreSQL本番対応）
+    6. ✅ .gitignore設定（データベースファイル除外）
+    7. ✅ マイグレーション実行とテスト（24 tests passed）
+  - 技術スタック:
+    - Alembic 1.13+ (SQLAlchemy migrations)
+    - SQLite + aiosqlite 0.21.0（開発環境）
+    - PostgreSQL + asyncpg 0.29.0（本番対応）
+    - greenlet 3.2.4（非同期サポート）
+  - データベーススキーマ:
+    - users: id (PK), email (indexed), email_verified, timestamps
+    - auth_factors: id (PK), user_id (FK, indexed), factor_type, provider, extra_data (JSON), weights, timestamps
+    - trust_signals: id (PK), user_id (FK, indexed), issuer, kind, extra_data (JSON), consent_granted, timestamps
+  - マイグレーションコマンド:
+    - 作成: `uv run alembic revision --autogenerate -m "description"`
+    - 適用: `uv run alembic upgrade head`
+    - ロールバック: `uv run alembic downgrade -1`
+  - 根拠: SQLAlchemyモデル（models/user.py, auth_factor.py, trust_signal.py）
+  - 成果:
+    - ゼロコンフィグ開発環境（SQLite自動作成）
+    - 本番環境対応（環境変数でPostgreSQL切替可能）
+    - 全テーブルにインデックス適切配置
+    - JSON列でメタデータ柔軟格納
+  - 次フェーズ: Phase 5（API動作確認とドキュメント整備）
