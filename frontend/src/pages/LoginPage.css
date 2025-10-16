@@ -184,6 +184,12 @@
   background: #1da1f2;
 }
 
+.glyph-seal-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
 .token-info {
   background: #f5f7ff;
   padding: 2rem;

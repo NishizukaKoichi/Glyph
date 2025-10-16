@@ -1,0 +1,167 @@
+.glyph-seal {
+  position: relative;
+  display: inline-block;
+}
+
+.glyph-svg {
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
+}
+
+/* 回転アニメーション */
+@keyframes rotate-outer {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-inner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.animating .glyph-outer-ring {
+  animation: rotate-outer 20s linear infinite;
+  transform-origin: center;
+}
+
+.animating .glyph-inner-ring {
+  animation: rotate-inner 15s linear infinite;
+  transform-origin: center;
+}
+
+/* 三角形のパルスアニメーション */
+@keyframes pulse-triangle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+.animating .glyph-triangle-1 {
+  animation: pulse-triangle 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.animating .glyph-triangle-2 {
+  animation: pulse-triangle 3s ease-in-out infinite 1.5s;
+  transform-origin: center;
+}
+
+/* 輪郭の発光アニメーション */
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
+  50% { filter: drop-shadow(0 0 15px currentColor); }
+}
+
+.animating .glyph-triangle-outline-1,
+.animating .glyph-triangle-outline-2 {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* スコアテキストの出現アニメーション */
+@keyframes fade-in-scale {
+  0% { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animating .glyph-score {
+  animation: fade-in-scale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+}
+
+/* パーティクルアニメーション */
+@keyframes particle-radiate {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--particle-x), var(--particle-y));
+    opacity: 0;
+  }
+}
+
+.glyph-particle {
+  opacity: 0;
+}
+
+.animating .glyph-particle-0 {
+  --particle-x: 0px;
+  --particle-y: -60px;
+  animation: particle-radiate 2s ease-out infinite;
+  animation-delay: 0s;
+}
+
+.animating .glyph-particle-1 {
+  --particle-x: 52px;
+  --particle-y: -30px;
+  animation: particle-radiate 2s ease-out infinite;
+  animation-delay: 0.3s;
+}
+
+.animating .glyph-particle-2 {
+  --particle-x: 52px;
+  --particle-y: 30px;
+  animation: particle-radiate 2s ease-out infinite;
+  animation-delay: 0.6s;
+}
+
+.animating .glyph-particle-3 {
+  --particle-x: 0px;
+  --particle-y: 60px;
+  animation: particle-radiate 2s ease-out infinite;
+  animation-delay: 0.9s;
+}
+
+.animating .glyph-particle-4 {
+  --particle-x: -52px;
+  --particle-y: 30px;
+  animation: particle-radiate 2s ease-out infinite;
+  animation-delay: 1.2s;
+}
+
+.animating .glyph-particle-5 {
+  --particle-x: -52px;
+  --particle-y: -30px;
+  animation: particle-radiate 2s ease-out infinite;
+  animation-delay: 1.5s;
+}
+
+/* 印章スタンプエフェクト */
+.glyph-stamp-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.glyph-stamp-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border: 3px solid;
+  border-radius: 50%;
+  opacity: 1;
+  animation: stamp-ripple 1.2s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.glyph-stamp-circle:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.glyph-stamp-circle:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes stamp-ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}

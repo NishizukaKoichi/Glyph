@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { startRegistration, startAuthentication } from '@simplewebauthn/browser'
 import { webauthn, oauth } from '../services/api'
+import { GlyphSeal } from '../components/glyph/GlyphSeal'
 import type { GlyphToken } from '../types/auth'
 import './LoginPage.css'
 
@@ -112,12 +113,15 @@ export function LoginPage() {
       <div className="login-page">
         <div className="login-card success">
           <h2>✓ 認証成功</h2>
+          <div className="glyph-seal-container">
+            <GlyphSeal
+              score={token.aegis_assurance.score}
+              level={token.aegis_assurance.level}
+              animated={true}
+              size={250}
+            />
+          </div>
           <div className="token-info">
-            <h3>Assurance Score</h3>
-            <div className="assurance-score">
-              <span className="score">{token.aegis_assurance.score}</span>
-              <span className="level">{token.aegis_assurance.level}</span>
-            </div>
             <div className="factors">
               <strong>認証ファクター:</strong>
               {token.aegis_assurance.factors.map((factor, i) => (

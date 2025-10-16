@@ -1,0 +1,29 @@
+.settings-page {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.settings-main {
+  padding: 2rem 0;
+}
+
+.settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.settings-header {
+  margin-bottom: 2rem;
+}
+
+.settings-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.settings-header p {
+  margin: 0;
+  color: #6b7280;
+}
