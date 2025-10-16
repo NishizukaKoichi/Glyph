@@ -1,14 +1,25 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { startRegistration, startAuthentication } from '@simplewebauthn/browser'
 import { webauthn, oauth } from '../services/api'
 import type { GlyphToken } from '../types/auth'
 import './LoginPage.css'
 
 export function LoginPage() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [token, setToken] = useState<GlyphToken | null>(null)
+
+  const handleSuccess = (result: GlyphToken) => {
+    setToken(result)
+    localStorage.setItem('glyph_token', JSON.stringify(result))
+    // Redirect to dashboard after short delay
+    setTimeout(() => {
+      navigate('/dashboard')
+    }, 1500)
+  }
 
   const handleWebAuthnRegister = async () => {
     if (!email) {
@@ -42,7 +53,7 @@ export function LoginPage() {
 
       // Finish registration
       const result = await webauthn.registerFinish(email, credential)
-      setToken(result)
+      handleSuccess(result)
       
     } catch (err: any) {
       setError(err.message || '登録に失敗しました')
@@ -82,7 +93,7 @@ export function LoginPage() {
 
       // Finish authentication
       const result = await webauthn.authenticateFinish(email, credential)
-      setToken(result)
+      handleSuccess(result)
 
     } catch (err: any) {
       setError(err.message || '認証に失敗しました')
